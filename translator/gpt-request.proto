@@ -13,3 +13,7 @@ message TranslationResponse {
     string error = 2;
   }
 }
+
+service TranslationService {
+  rpc Translation(TranslationRequest) returns (TranslationResponse);
+}
