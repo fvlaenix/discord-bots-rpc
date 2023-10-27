@@ -1,0 +1,15 @@
+syntax ="proto3";
+
+option java_multiple_files = true;
+option java_package = "com.fvlaenix.translation.protobuf";
+
+message TranslationRequest {
+  string text = 1;
+}
+
+message TranslationResponse {
+  oneof response{
+    string text = 1;
+    string error = 2;
+  }
+}
