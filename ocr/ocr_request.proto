@@ -12,5 +12,8 @@ message OcrRequest {
 }
 
 message OcrResponse {
-  string text = 1;
+  oneof response{
+    string text = 1;
+    string error = 2;
+  }
 }
