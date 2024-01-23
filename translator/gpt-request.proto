@@ -1,7 +1,23 @@
 syntax ="proto3";
 
+package translator;
+
 option java_multiple_files = true;
 option java_package = "com.fvlaenix.translation.protobuf";
+
+import "is-alive.proto";
+
+message TranslationFileRequest {
+  string fileName = 1;
+  bytes file = 2;
+}
+
+message TranslationFileResponse {
+  oneof response{
+    bytes file = 1;
+    string error = 2;
+  }
+}
 
 message TranslationRequest {
   string text = 1;
@@ -16,4 +32,6 @@ message TranslationResponse {
 
 service TranslationService {
   rpc Translation(TranslationRequest) returns (TranslationResponse);
+  rpc TranslationFile(TranslationFileRequest) returns (TranslationFileResponse);
+  rpc IsAlive(IsAliveRequest) returns (IsAliveResponse);
 }

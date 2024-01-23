@@ -1,19 +1,50 @@
 syntax ="proto3";
 
+package ocr;
+
 option java_multiple_files = true;
 option java_package = "com.fvlaenix.ocr.protobuf";
 
-service OcrService {
-  rpc Ocr(OcrRequest) returns (OcrResponse);
-}
+import "is-alive.proto";
 
-message OcrRequest {
+message OcrUrlImageRequest {
   string url = 1;
 }
 
-message OcrResponse {
+message OcrImageRequest {
+  bytes image = 1;
+}
+
+message OcrRectangle {
+  int64 x = 1;
+  int64 y = 2;
+  int64 width = 3;
+  int64 height = 4;
+  string text = 5;
+}
+
+message OcrRectangles {
+  repeated OcrRectangle rectangles = 1;
+}
+
+message OcrTextResponse {
   oneof response{
-    string text = 1;
+    OcrRectangles rectangles = 1;
     string error = 2;
   }
+}
+
+message OcrImageResponse {
+  oneof response{
+    OcrTextResponse text = 1;
+    string error = 2;
+  }
+}
+
+service OcrService {
+  rpc OcrImage(OcrImageRequest) returns (OcrTextResponse);
+  rpc OcrUrlImage(OcrUrlImageRequest) returns (OcrTextResponse);
+  rpc OcrImageToImage(OcrImageRequest) returns (OcrImageResponse);
+  rpc OcrUrlToImage(OcrUrlImageRequest) returns (OcrImageResponse);
+  rpc IsAlive(IsAliveRequest) returns (IsAliveResponse);
 }
