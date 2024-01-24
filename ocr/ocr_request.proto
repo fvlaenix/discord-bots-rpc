@@ -13,6 +13,7 @@ message OcrUrlImageRequest {
 
 message OcrImageRequest {
   bytes image = 1;
+  string name = 2;
 }
 
 message OcrRectangle {
@@ -37,6 +38,7 @@ message OcrTextResponse {
 message OcrImageSuccessfulResponse {
   OcrTextResponse text = 1;
   bytes image = 2;
+  string name = 3;
 }
 
 message OcrImageResponse {
