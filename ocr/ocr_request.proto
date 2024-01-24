@@ -34,9 +34,14 @@ message OcrTextResponse {
   }
 }
 
+message OcrImageSuccessfulResponse {
+  OcrTextResponse text = 1;
+  bytes image = 2;
+}
+
 message OcrImageResponse {
   oneof response{
-    OcrTextResponse text = 1;
+    OcrImageSuccessfulResponse result = 1;
     string error = 2;
   }
 }
