@@ -7,16 +7,19 @@ option java_package = "com.fvlaenix.translation.protobuf";
 
 import "is-alive.proto";
 
-message TranslationFileRequest {
+message TranslationFile {
   string fileName = 1;
-  bytes file = 2;
+  string text = 2;
+  optional string translation = 3;
 }
 
-message TranslationFileResponse {
-  oneof response{
-    bytes file = 1;
-    string error = 2;
-  }
+message TranslationFilesRequest {
+  repeated TranslationFile requests = 1;
+}
+
+message TranslationFilesResponse {
+  repeated TranslationFile response = 1;
+  string error = 2;
 }
 
 message TranslationRequest {
@@ -32,6 +35,6 @@ message TranslationResponse {
 
 service TranslationService {
   rpc Translation(TranslationRequest) returns (TranslationResponse);
-  rpc TranslationFile(TranslationFileRequest) returns (TranslationFileResponse);
+  rpc TranslationFile(TranslationFilesRequest) returns (TranslationFilesResponse);
   rpc IsAlive(IsAliveRequest) returns (IsAliveResponse);
 }
