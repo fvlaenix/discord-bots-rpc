@@ -1,0 +1,41 @@
+syntax="proto3";
+import "is-alive.proto";
+
+package editor;
+
+option java_multiple_files = true;
+option java_package = "com.fvlaenix.editor.protobuf";
+
+message Color {
+  int32 r = 1;
+  int32 g = 2;
+  int32 b = 3;
+  int32 a = 4;
+}
+
+message Settings {
+  optional string font = 1;
+  optional int32 fontSize = 2;
+  optional Color fontColor = 3;
+  optional Color outlineColor = 4;
+  optional double outlineSize = 5;
+  optional int32 border = 6;
+}
+
+message ImageData {
+  string filename = 1;
+  int32 x = 2;
+  int32 y = 3;
+  int32 width = 4;
+  int32 text = 5;
+  optional Settings settings = 6;
+}
+
+message EditorRequest {
+  Settings defaultSettings = 1;
+  repeated ImageData imageData = 2;
+}
+
+service EditorService {
+  rpc IsAlive(IsAliveRequest) returns (IsAliveResponse);
+}
