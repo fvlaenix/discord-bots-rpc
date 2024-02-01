@@ -1,5 +1,6 @@
 syntax="proto3";
 import "is-alive.proto";
+import "image.proto";
 
 package editor;
 
@@ -19,16 +20,22 @@ message Settings {
   optional Color fontColor = 3;
   optional Color outlineColor = 4;
   optional double outlineSize = 5;
-  optional int32 border = 6;
+  optional Color backgroundColor = 6;
+  optional int32 border = 7;
 }
 
-message ImageData {
-  string filename = 1;
+message BlockData {
   int32 x = 2;
   int32 y = 3;
   int32 width = 4;
-  int32 text = 5;
+  string text = 5;
   optional Settings settings = 6;
+}
+
+message ImageData {
+  Image image = 1;
+  repeated BlockData blocks = 2;
+  optional Settings settings = 3;
 }
 
 message EditorRequest {
@@ -36,6 +43,18 @@ message EditorRequest {
   repeated ImageData imageData = 2;
 }
 
+message EditorResponseImages {
+  repeated Image images = 1;
+}
+
+message EditorResponse {
+  oneof response{
+    EditorResponseImages images = 1;
+    string error = 2;
+  }
+}
+
 service EditorService {
   rpc IsAlive(IsAliveRequest) returns (IsAliveResponse);
+  rpc Edit(EditorRequest) returns (EditorResponse);
 }
