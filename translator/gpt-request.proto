@@ -7,10 +7,14 @@ option java_package = "com.fvlaenix.translation.protobuf";
 
 import "is-alive.proto";
 
+message TranslationBlock {
+  string text = 1;
+  optional string translation = 2;
+}
+
 message TranslationFile {
   string fileName = 1;
-  string text = 2;
-  optional string translation = 3;
+  repeated TranslationBlock blocks = 2;
 }
 
 message TranslationFilesRequest {
