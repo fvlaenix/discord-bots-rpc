@@ -1,0 +1,64 @@
+syntax ="proto3";
+
+package duplicate;
+
+option java_multiple_files = true;
+option java_package = "com.fvlaenix.duplicate.protobuf";
+
+import "is-alive.proto";
+import "image.proto";
+
+message Size {
+  int32 x = 1;
+  int32 y = 2;
+}
+
+message AddImageRequest {
+  string group = 1;
+  string imageInfo = 2;
+  Image image = 3;
+  int64 timestamp = 6;
+}
+
+message AddImageResponse {
+  oneof response{
+    bool isAdded = 1;
+    string error = 2;
+  }
+
+}
+
+message CheckImageRequest {
+  string group = 1;
+  Image image = 2;
+  int64 timestamp = 3;
+}
+
+message CheckImageResponseImageInfo {
+  repeated string imageInfo = 1;
+}
+
+message CheckImageResponse {
+  oneof response{
+    CheckImageResponseImageInfo imageInfo = 1;
+    string error = 2;
+  }
+}
+
+message GetCompressionSizeRequest {
+
+}
+
+message GetCompressionSizeResponse {
+  oneof size {
+    int32 x = 1;
+    int32 y = 2;
+  }
+}
+
+service DuplicateImagesService {
+  rpc AddImage(AddImageRequest) returns (AddImageResponse);
+  rpc CheckImage(CheckImageRequest) returns (CheckImageResponse);
+  rpc GetImageCompressionSize(GetCompressionSizeRequest) returns (GetCompressionSizeResponse);
+  rpc IsAlive(IsAliveRequest) returns (IsAliveResponse);
+}
