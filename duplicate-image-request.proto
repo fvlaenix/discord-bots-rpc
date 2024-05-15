@@ -25,7 +25,18 @@ message AddImageResponse {
     bool isAdded = 1;
     string error = 2;
   }
+}
 
+message ExistsImageRequest {
+  string group = 1;
+  string imageInfo = 2;
+}
+
+message ExistsImageResponse {
+  oneof response {
+    bool isExists = 1;
+    string error = 2;
+  }
 }
 
 message CheckImageRequest {
@@ -58,6 +69,7 @@ message GetCompressionSizeResponse {
 
 service DuplicateImagesService {
   rpc AddImage(AddImageRequest) returns (AddImageResponse);
+  rpc ExistsImage(ExistsImageRequest) returns (ExistsImageResponse);
   rpc CheckImage(CheckImageRequest) returns (CheckImageResponse);
   rpc GetImageCompressionSize(GetCompressionSizeRequest) returns (GetCompressionSizeResponse);
   rpc IsAlive(IsAliveRequest) returns (IsAliveResponse);
