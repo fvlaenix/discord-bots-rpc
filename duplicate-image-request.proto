@@ -15,14 +15,20 @@ message Size {
 
 message AddImageRequest {
   string group = 1;
-  string imageInfo = 2;
-  Image image = 3;
-  int64 timestamp = 6;
+  string imageId = 2;
+  string additionalInfo = 3;
+  Image image = 4;
+  int64 timestamp = 5;
+}
+
+message AddImageResponseOk {
+  bool isAdded = 1;
+  CheckImageResponseImageInfo imageInfo = 2;
 }
 
 message AddImageResponse {
   oneof response{
-    bool isAdded = 1;
+    AddImageResponseOk responseOk = 1;
     string error = 2;
   }
 }
@@ -68,7 +74,7 @@ message GetCompressionSizeResponse {
 }
 
 service DuplicateImagesService {
-  rpc AddImage(AddImageRequest) returns (AddImageResponse);
+  rpc AddImageWithCheck(AddImageRequest) returns (AddImageResponse);
   rpc ExistsImage(ExistsImageRequest) returns (ExistsImageResponse);
   rpc CheckImage(CheckImageRequest) returns (CheckImageResponse);
   rpc GetImageCompressionSize(GetCompressionSizeRequest) returns (GetCompressionSizeResponse);
