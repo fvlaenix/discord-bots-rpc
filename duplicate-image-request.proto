@@ -23,7 +23,7 @@ message AddImageRequest {
 
 message AddImageResponseOk {
   bool isAdded = 1;
-  CheckImageResponseImageInfo imageInfo = 2;
+  CheckImageResponseImagesInfo imageInfo = 2;
 }
 
 message AddImageResponse {
@@ -51,13 +51,18 @@ message CheckImageRequest {
   int64 timestamp = 3;
 }
 
-message CheckImageResponseImageInfo {
-  repeated string imageInfo = 1;
+message CheckImageResponseImagesInfo {
+  repeated CheckImageResponseImageInfo images = 1;
+  
+  message CheckImageResponseImageInfo {
+    string imageId = 1;
+    int64 level = 2;
+  }
 }
 
 message CheckImageResponse {
   oneof response{
-    CheckImageResponseImageInfo imageInfo = 1;
+    CheckImageResponseImagesInfo imageInfo = 1;
     string error = 2;
   }
 }
