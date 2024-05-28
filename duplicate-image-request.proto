@@ -87,6 +87,7 @@ message GetCompressionSizeResponse {
   oneof size {
     int32 x = 1;
     int32 y = 2;
+    string error = 3;
   }
 }
 
