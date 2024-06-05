@@ -1,0 +1,27 @@
+syntax ="proto3";
+
+package saucenao;
+
+option java_multiple_files = true;
+option java_package = "com.fvlaenix.saucenao.protobuf";
+
+import "is-alive.proto";
+
+message SaucenaoRequest {
+  string url = 1;
+}
+
+message SaucenaoResponse {
+  message Source {
+    string sourceOfSource = 1;
+    string author = 2;
+    string url = 3;
+  }
+
+  repeated Source source = 1;
+}
+
+service SaucenaoService {
+  rpc GetSource(SaucenaoRequest) returns (SaucenaoResponse);
+  rpc IsAlive(IsAliveRequest) returns (IsAliveResponse);
+}
