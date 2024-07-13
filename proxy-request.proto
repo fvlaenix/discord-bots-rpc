@@ -1,0 +1,16 @@
+syntax ="proto3";
+
+package proxy;
+
+option java_multiple_files = true;
+option java_package = "com.fvlaenix.proxy.protobuf";
+
+import "is-alive.proto";
+import "gpt-request.proto";
+import "ocr-request.proto";
+
+service ProxyService {
+  rpc Translation(translator.TranslationRequest) returns (translator.TranslationResponse);
+  rpc OcrImage(ocr.OcrImageRequest) returns (ocr.OcrTextResponse);
+  rpc IsAlive(IsAliveRequest) returns (IsAliveResponse);
+}
