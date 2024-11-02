@@ -11,6 +11,7 @@ import "ocr-request.proto";
 
 service ProxyService {
   rpc Translation(translator.TranslationRequest) returns (translator.TranslationResponse);
+  rpc TranslationFile(translator.TranslationFilesRequest) returns (translator.TranslationFilesResponse);
   rpc OcrImage(ocr.OcrImageRequest) returns (ocr.OcrTextResponse);
   rpc IsAlive(IsAliveRequest) returns (IsAliveResponse);
 }
